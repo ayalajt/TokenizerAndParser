@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include "Givens.h"
+#include "Tokenizer.h"
+
+enum token helper(char *value) {
+	// TO DO: if any string has a parenthesis or bracket in it
+
+	printf("The value is %s\n", value);
+	return VARTYPE;
+}
+
+_Bool tokenizer(struct lexics *aLex, int *numLex, FILE *inf) {
+	char line[MY_CHAR_MAX];
+	char delim[] = " ";
+	
+	while ((fgets(line, MY_CHAR_MAX, inf)) != NULL) {
+		
+		// First separate the string in the text file by using whitespace
+		// as a delimiter
+		char *ptr = strtok(line, delim);
+		
+		while (ptr != NULL) {
+			// First create a new lexics structure to store the string
+			// and its token
+			struct lexics newL;
+		
+			if (strcmp(ptr, "(") == 0) {
+				newL.token = LEFT_PARENTHESIS;
+			}
+			else if (strcmp(ptr, ")") == 0) {
+				newL.token = RIGHT_PARENTHESIS;
+			}
+			else if (strcmp(ptr, "{") == 0) {
+				newL.token = LEFT_BRACKET;
+			}
+			else if (strcmp(ptr, "}") == 0) {
+				newL.token = RIGHT_BRACKET;
+			}
+			else if (strcmp(ptr, "while") == 0) {
+				newL.token = WHILE_KEYWORD;
+			}
+			
+
+			// Store the lexeme in the structure by calling the 
+			// string copy function
+			strcpy(newL.lexeme, ptr);
+
+			// Store the lexics structure in the aLex array, 
+			// incrementing the numLex during the process	
+			aLex[*numLex] = newL;
+			// Just checking everything is good
+                        printf("Token in array is %d\n", aLex[*numLex].token);
+                        printf("Lexeme in array is %s\n", aLex[*numLex].lexeme);		
+			numLex++;
+
+			// increment the string pointer to the next string value
+			ptr = strtok(NULL, delim);
+
+		}				
+	}
+
+}
+
