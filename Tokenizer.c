@@ -99,7 +99,7 @@ _Bool tokenizer(struct lexics *aLex, int *numLex, FILE *inf) {
 			if ((line[i] == '\t') || (line[i] == '\n')) {
 				line[i] = ' ';
 			}
-			printf("String before getting cut up: %s\n", line);
+			//printf("String before getting cut up: %s\n", line);
 			// If the current character is a valid single character lexeme, then spaces have to be placed before and after the character
 			if ((line[i] == '(') || (line[i] == ')') || (line[i] == '{')  || (line[i] == '}') || (line[i] == ',') || (line[i] == ';')
 				|| (line[i] == '+') || (line[i] == '*') || (line[i] == '%')) {
@@ -206,7 +206,7 @@ _Bool tokenizer(struct lexics *aLex, int *numLex, FILE *inf) {
 				i++;
 			}
 		}
-		printf("The string is %s\n", line);
+		printf("The string is: %s\n", line);
 		// Here, separate the string by using a space as a delimiter and then loop
 		// through the string pointer until there are no more tokens to add
 		ptr = strtok(line, delim);
